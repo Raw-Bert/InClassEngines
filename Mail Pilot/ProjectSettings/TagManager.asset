@@ -8,6 +8,8 @@ TagManager:
   - Island
   - Ocean
   - Manager
+  - Bullets
+  - Missiles
   layers:
   - Default
   - TransparentFX
