@@ -163,7 +163,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e01f362e6f665fa4a980afdd9fe5b6a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 7008785284576285171, guid: bb06c5ba2d15c2647b82760f50c866d5, type: 3}
+  pools:
+  - tag: Bullets
+    prefab: {fileID: 7008785284576285171, guid: bb06c5ba2d15c2647b82760f50c866d5,
+      type: 3}
+    size: 25
+  - tag: Missiles
+    prefab: {fileID: 6147126040637727505, guid: f54aa3ebd4a80484c9f8699120938e32,
+      type: 3}
+    size: 10
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

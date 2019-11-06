@@ -8,10 +8,11 @@ public class BulletController : MonoBehaviour
     public float bulletSpeed = 0.1f;
     public Boundary boundary;
 
-    //TODO: create a reference to the BulletPoolManager
+    private static BulletPoolManager myPool;
 
     void Start()
     {
+        myPool = BulletPoolManager.Instance;
         boundary.Top = 2.45f;
     }
 
@@ -34,7 +35,8 @@ public class BulletController : MonoBehaviour
         {
             //TODO: This code needs to change to use the BulletPoolManager's
             //TODO: ResetBullet function which will return the bullet to the pool
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            myPool.ResetBullet(gameObject);
         }
     }
 }

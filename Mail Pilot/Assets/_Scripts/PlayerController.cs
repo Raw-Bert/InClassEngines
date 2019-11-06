@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public Boundary boundary;
     public GameController gameController;
     public Transform bulletSpawn;
-    public GameObject bullet;
+    //public GameObject bullet;
 
     // private instance variables
     private AudioSource _thunderSound;
@@ -18,12 +18,15 @@ public class PlayerController : MonoBehaviour
     private AudioSource _bulletSound;
 
     private bool isFiring = false;
+      private bool isFiring2 = false;
 
-    //TODO: create a reference to the BulletPoolManager here
+    private static BulletPoolManager myPool;
 
     // Start is called before the first frame update
     void Start()
     {
+        myPool = BulletPoolManager.Instance;
+
         _thunderSound = gameController.audioSources[(int)SoundClip.THUNDER];
         _yaySound = gameController.audioSources[(int)SoundClip.YAY];
         _bulletSound = GetComponent<AudioSource>();
@@ -80,13 +83,18 @@ public class PlayerController : MonoBehaviour
     private void ActionCheck()
     {
         // see Edit -> Project Settings -> Input
-        if (Input.GetAxis("Jump") > 0)
+        if (Input.GetAxis("Jump") > 0 && !isFiring2)
         {
             isFiring = true;
+        }
+        else if(Input.GetAxis("Horizontal") > 0 && !isFiring)
+        {
+            isFiring2 = true;
         }
         else
         {
             isFiring = false;
+            isFiring2 = false;
         }
     }
 
@@ -119,8 +127,21 @@ public class PlayerController : MonoBehaviour
                 //TODO: GetBullet function which will return a reference to a 
                 //TODO: bullet object. 
                 //TODO: Ensure you position the new bullet at the bulletSpawn position
-                Instantiate(bullet, bulletSpawn.position, Quaternion.identity);
+
+                //myPool.GetBullet();
+                myPool.GetBullet("Bullets", bulletSpawn.position, Quaternion.identity);
+                //myPool.GetBullet("Missiles", bulletSpawn.position, Quaternion.identity);
+                //Instantiate(bullet, bulletSpawn.position, Quaternion.identity);
             }
+            if (isFiring2)
+            {
+                myPool.GetBullet("Missiles", bulletSpawn.position, Quaternion.identity);
+            }
+            //else if (isFiring2)
+            //{
+             //   _bulletSound.Play();
+             //   myPool.GetBullet("Missiles", bulletSpawn.position, Quaternion.identity);
+            //}
 
         }
     }
